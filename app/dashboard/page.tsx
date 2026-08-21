@@ -1,11 +1,12 @@
 /* Vinext starter has no next/image runtime; native images retain the prototype crop
  * with explicit alt and lazy-loading attributes without adding a dependency. */
 /* eslint-disable @next/next/no-img-element */
+/* Vinext's stable routing path uses native anchors for internal navigation. */
+/* eslint-disable @next/next/no-html-link-for-pages */
 
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 
 type ModuleKey = "Dashboard" | "Artikel" | "Program" | "Kegiatan" | "Media" | "Pengaturan";
 type IconKey = "dashboard" | "articles" | "programs" | "activities" | "media" | "settings";
@@ -132,12 +133,12 @@ export default function Dashboard() {
 
   return <div className="bi-dashboard">
     <aside className={`bi-sidebar ${mobileOpen ? "is-open" : ""}`}>
-      <Link className="bi-brand" href="/" aria-label="Kembali ke situs publik Nurani Media"><span className="bi-brand-mark">N</span><div><strong>NURANI MEDIA</strong><small>ADMIN CONTROL</small></div></Link>
+      <a className="bi-brand" href="/" aria-label="Kembali ke situs publik Nurani Media"><span className="bi-brand-mark">N</span><div><strong>NURANI MEDIA</strong><small>ADMIN CONTROL</small></div></a>
       <div className="bi-sidebar-scroll"><p className="bi-nav-label">Konten</p><nav className="bi-nav" aria-label="Modul dashboard">{navItems.map((item) => <button key={item.key} type="button" className={activeModule === item.key ? "is-active" : ""} onClick={() => selectModule(item.key)} aria-current={activeModule === item.key ? "page" : undefined}><Icon name={item.icon} /><span><strong>{item.label}</strong><small>{item.helper}</small></span>{item.key === "Program" ? <em>04</em> : null}</button>)}</nav></div>
       <div className="bi-sidebar-footer"><div className="bi-avatar">NM</div><div><strong>Admin Nurani Media</strong><small>PROTOTYPE UI / DATA CONTOH</small></div><button type="button" aria-label="Opsi ruang kerja">···</button></div>
     </aside>
 
-    <div className="bi-main"><header className="bi-topbar"><button type="button" className="bi-mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)} aria-label={mobileOpen ? "Tutup navigasi" : "Buka navigasi"} aria-expanded={mobileOpen}>☰</button><div className="bi-breadcrumb"><span>NURANI MEDIA / ADMIN</span><b>/</b><strong>{activeItem.label.toUpperCase()}</strong></div><div className="bi-top-actions"><span className="bi-prototype-chip"><i /> PROTOTYPE MODE</span><Link className="bi-public-link" href="/">SITUS PUBLIK ↗</Link><button className="bi-top-icon" type="button" aria-label="Notifikasi">◌</button><span className="bi-top-avatar">NM</span></div></header>
+    <div className="bi-main"><header className="bi-topbar"><button type="button" className="bi-mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)} aria-label={mobileOpen ? "Tutup navigasi" : "Buka navigasi"} aria-expanded={mobileOpen}>☰</button><div className="bi-breadcrumb"><span>NURANI MEDIA / ADMIN</span><b>/</b><strong>{activeItem.label.toUpperCase()}</strong></div><div className="bi-top-actions"><span className="bi-prototype-chip"><i /> PROTOTYPE MODE</span><a className="bi-public-link" href="/">SITUS PUBLIK ↗</a><button className="bi-top-icon" type="button" aria-label="Notifikasi">◌</button><span className="bi-top-avatar">NM</span></div></header>
       <main className="bi-content"><div className="bi-page-heading"><div><p className="bi-eyebrow">NURANI MEDIA / ADMIN / 2026</p><h1>{activeModule === "Dashboard" ? <>Melihat Dampak,<br /><em>Menggerakkan Perubahan.</em></> : activeItem.label}</h1><p className="bi-page-description">{activeModule === "Dashboard" ? "Satu ruang untuk memahami artikel, program, kegiatan, dan media yang membangun kerja Yayasan Berpijar Indonesia." : activeItem.helper + " / prototipe UI statis untuk workspace Nurani Media."}</p></div><div className="bi-date-block"><span>STATUS WORKSPACE</span><strong><i /> SIAP UNTUK DATA</strong><small>21 AGU 2026 / DATA CONTOH</small></div></div>
         {activeModule === "Dashboard" ? <Overview query={query} setQuery={setQuery} /> : null}
         {activeModule === "Artikel" ? <ArticlesView /> : null}

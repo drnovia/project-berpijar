@@ -6,7 +6,6 @@
 "use client";
 
 import { useLayoutEffect, useState } from "react";
-import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -210,7 +209,7 @@ export default function Home() {
             <a href="#kegiatan" onClick={closeMenu}>Kegiatan</a>
             <a href="#artikel" onClick={closeMenu}>Artikel</a>
             <a href="#kontak" onClick={closeMenu}>Kontak</a>
-            <Link className="bp-nav-dashboard" href="/dashboard" onClick={closeMenu}>Dashboard ↗</Link>
+            <a className="bp-nav-dashboard" href="/dashboard" onClick={closeMenu}>Dashboard ↗</a>
           </div>
           <a className="bp-support" href="#dukung">DUKUNG KAMI <span>↗</span></a>
           <button className={`bp-menu-button ${menuOpen ? "is-open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label={menuOpen ? "Tutup menu" : "Buka menu"}><span /><span /></button>
@@ -242,7 +241,7 @@ export default function Home() {
         <section className="bp-program bp-grid-section" id="program">
           <div className="bp-section-label"><span>03</span><span className="bp-label-line" />PROGRAM</div>
           <div className="bp-program-heading"><h2>Program yang hadir<br /><i>untuk memberi bekal.</i></h2><p>Program andalan Berpijar berangkat dari kepedulian pada pendidikan, life skill, dan pembekalan anak untuk menghadapi kehidupan.</p><figure className="bp-program-feature"><img src="/berpijar/life-skill-workshop.jpg" alt="Peserta mengikuti pembekalan keterampilan barber dalam program life skill Berpijar." loading="lazy" /><figcaption><span>03 — LIFE SKILL</span><strong>Belajar melalui praktik.</strong></figcaption></figure></div>
-          <div className="bp-program-list">{programs.map((program) => <article className={`bp-program-item ${program.featured ? "is-featured" : ""}`} key={program.number}><div className="bp-program-number">{program.number}</div><div className="bp-program-main"><h3>{program.title}</h3><p>{program.text}</p></div><Link className="bp-arrow" href={program.featured ? "/program/life-skill-teman-tuli" : "/program"} aria-label={`Lihat ${program.title}`}>↗</Link></article>)}</div>
+          <div className="bp-program-list">{programs.map((program) => <article className={`bp-program-item ${program.featured ? "is-featured" : ""}`} key={program.number}><div className="bp-program-number">{program.number}</div><div className="bp-program-main"><h3>{program.title}</h3><p>{program.text}</p></div><a className="bp-arrow" href={program.featured ? "/program/life-skill-teman-tuli" : "/program"} aria-label={`Lihat ${program.title}`}>↗</a></article>)}</div>
         </section>
 
         <section className="bp-stories bp-grid-section" id="kegiatan">
