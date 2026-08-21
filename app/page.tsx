@@ -54,9 +54,9 @@ export default function Home() {
     }
 
     const context = gsap.context(() => {
-      const imageTargets = ".bp-about-media img, .bp-program-feature img, .bp-activity-rail img, .bp-article-media img";
-      const motionTargets = ".bp-focus-item, .bp-program-item, .bp-small-stories article, .bp-news-list article, .bp-metrics div";
-      const sectionTargets = ".bp-intro, .bp-focus, .bp-program, .bp-stories, .bp-news, .bp-impact, .bp-featured-article, .bp-cta, .bp-footer";
+      const imageTargets = ".bp-about-media img, .bp-program-feature img, .bp-activity-rail img";
+      const motionTargets = ".bp-focus-item, .bp-program-item, .bp-small-stories article, .bp-metrics div";
+      const sectionTargets = ".bp-intro, .bp-focus, .bp-program, .bp-stories, .bp-impact, .bp-cta, .bp-footer";
 
       if (reduceMotion) {
         return;
@@ -92,6 +92,61 @@ export default function Home() {
         once: true,
         onEnter: (elements) => gsap.from(elements, { opacity: 0, x: -8, duration: 0.55, stagger: 0.05, ease: "power2.out", overwrite: true }),
       });
+
+      const compactMotion = window.matchMedia("(max-width: 680px)").matches;
+      const revealDuration = compactMotion ? 0.52 : 0.7;
+      const revealEase = "power2.out";
+      const newsSection = document.querySelector<HTMLElement>("#artikel");
+      const featuredSection = document.querySelector<HTMLElement>("#featured-article");
+
+      if (newsSection) {
+        const newsLabel = newsSection.querySelector<HTMLElement>(".bp-section-label");
+        const newsHeading = newsSection.querySelector<HTMLElement>(".bp-news-heading h2");
+        const newsDescription = newsSection.querySelector<HTMLElement>(".bp-news-heading p");
+        const newsRows = gsap.utils.toArray<HTMLElement>(".bp-news-list article", newsSection);
+
+        if (newsLabel && newsHeading && newsDescription && newsRows.length) {
+          gsap.set([newsLabel, newsHeading, newsDescription, ...newsRows], { autoAlpha: 0, y: compactMotion ? 14 : 24 });
+          const newsTimeline = gsap.timeline({ scrollTrigger: { trigger: newsSection, start: compactMotion ? "top 88%" : "top 78%", once: true } });
+          newsTimeline
+            .to(newsLabel, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase })
+            .to(newsHeading, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase }, "-=0.36")
+            .to(newsDescription, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase }, "-=0.34")
+            .to(newsRows, { autoAlpha: 1, y: 0, duration: compactMotion ? 0.46 : 0.62, stagger: compactMotion ? 0.06 : 0.1, ease: revealEase }, "-=0.16");
+        }
+      }
+
+      if (featuredSection) {
+        const featuredLabel = featuredSection.querySelector<HTMLElement>(".bp-section-label");
+        const featuredMedia = featuredSection.querySelector<HTMLElement>(".bp-article-media");
+        const featuredCopy = featuredSection.querySelector<HTMLElement>(".bp-article-copy");
+        const featuredMainImage = featuredSection.querySelector<HTMLImageElement>(".bp-article-main-image");
+        const featuredSecondaryImage = featuredSection.querySelector<HTMLImageElement>(".bp-article-secondary-image");
+        const featuredCaption = featuredSection.querySelector<HTMLElement>(".bp-article-media p");
+        const featuredMeta = featuredSection.querySelector<HTMLElement>(".bp-article-copy .bp-meta");
+        const featuredTitle = featuredSection.querySelector<HTMLElement>(".bp-article-copy h2");
+        const featuredButton = featuredSection.querySelector<HTMLElement>(".bp-article-button");
+        const featuredPlaceholder = featuredSection.querySelector<HTMLElement>(".bp-article-placeholder");
+
+        if (featuredLabel && featuredMedia && featuredCopy && featuredMainImage && featuredSecondaryImage && featuredCaption && featuredMeta && featuredTitle && featuredButton && featuredPlaceholder) {
+          gsap.set([featuredLabel, featuredMedia, featuredCopy], { autoAlpha: 0, y: compactMotion ? 14 : 24 });
+          gsap.set([featuredCaption, featuredMeta, featuredTitle, featuredButton, featuredPlaceholder], { autoAlpha: 0, y: compactMotion ? 12 : 18 });
+          gsap.set([featuredMainImage, featuredSecondaryImage], { clipPath: "inset(0 0 12% 0)", opacity: 0.8, scale: compactMotion ? 1.015 : 1.03 });
+
+          const featuredTimeline = gsap.timeline({ scrollTrigger: { trigger: featuredSection, start: compactMotion ? "top 88%" : "top 80%", once: true } });
+          featuredTimeline
+            .to(featuredLabel, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase })
+            .to(featuredMedia, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase }, "-=0.28")
+            .to(featuredMainImage, { clipPath: "inset(0 0 0% 0)", opacity: 1, scale: 1, duration: compactMotion ? 0.7 : 1, ease: "power2.out" }, "-=0.42")
+            .to(featuredSecondaryImage, { clipPath: "inset(0 0 0% 0)", opacity: 1, scale: 1, duration: compactMotion ? 0.62 : 0.84, ease: "power2.out" }, "-=0.66")
+            .to(featuredCopy, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase }, "-=0.55")
+            .to(featuredMeta, { autoAlpha: 1, y: 0, duration: compactMotion ? 0.42 : 0.52, ease: revealEase })
+            .to(featuredTitle, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase }, "-=0.22")
+            .to(featuredButton, { autoAlpha: 1, y: 0, duration: compactMotion ? 0.42 : 0.52, ease: revealEase }, "-=0.18")
+            .to(featuredPlaceholder, { autoAlpha: 1, y: 0, duration: compactMotion ? 0.42 : 0.52, ease: revealEase }, "-=0.16")
+            .to(featuredCaption, { autoAlpha: 1, y: 0, duration: compactMotion ? 0.42 : 0.52, ease: revealEase }, "-=0.34");
+        }
+      }
 
       const nav = document.querySelector(".bp-nav-wrap");
       ScrollTrigger.create({
@@ -184,7 +239,7 @@ export default function Home() {
           <div className="bp-metrics"><div><strong>PENDIDIKAN</strong><span>MENDUKUNG &amp; MENGEMBANGKAN</span></div><div><strong>LIFE SKILL</strong><span>MEMBEKALI KESIAPAN</span></div><div><strong>TEMAN TULI</strong><span>PROGRAM ANDALAN</span></div><div><strong>ANAK YATIM PIATU</strong><span>PROGRAM ANDALAN</span></div></div>
         </section>
 
-          <section className="bp-featured-article bp-grid-section" id="featured-article"><div className="bp-section-label"><span>07</span><span className="bp-label-line" />FEATURED ARTICLE</div><div className="bp-article-wrap"><div className="bp-article-media"><img className="bp-article-main-image" src="/berpijar/workshop-room.jpg" alt="Peserta dan tim mengikuti kegiatan pengabdian kepada masyarakat untuk pendidikan inklusif." loading="lazy" /><img className="bp-article-secondary-image" src="/berpijar/community-presentation.jpg" alt="Tim dan peserta menunjukkan laptop dalam kegiatan AI Tutoring System untuk teman tuli." loading="lazy" /><p>AI TUTORING SYSTEM / PENDIDIKAN INKLUSIF</p></div><div><p className="bp-meta">PENDIDIKAN / INKLUSIVITAS</p><h2>Tim Pengabdian Masyarakat Universitas Negeri Malang Hadirkan Inovasi AI Tutoring System untuk Teman Tuli, Wujudkan Pendidikan Inklusif Berkualitas</h2><a className="bp-button bp-button-dark bp-article-button" href="#featured-article">BACA ARTIKEL <span>→</span></a><div className="bp-article-placeholder"><span>Konten lengkap artikel belum tersedia di project.</span><small>Sumber, tanggal, dan materi artikel akan ditambahkan setelah tersedia.</small></div></div></div></section>
+          <section className="bp-featured-article bp-grid-section" id="featured-article"><div className="bp-section-label"><span>07</span><span className="bp-label-line" />FEATURED ARTICLE</div><div className="bp-article-wrap"><div className="bp-article-media"><img className="bp-article-main-image" src="/berpijar/workshop-room.jpg" alt="Peserta dan tim mengikuti kegiatan pengabdian kepada masyarakat untuk pendidikan inklusif." loading="lazy" /><img className="bp-article-secondary-image" src="/berpijar/community-presentation.jpg" alt="Tim dan peserta menunjukkan laptop dalam kegiatan AI Tutoring System untuk teman tuli." loading="lazy" /><p>AI TUTORING SYSTEM / PENDIDIKAN INKLUSIF</p></div><div className="bp-article-copy"><p className="bp-meta">PENDIDIKAN / INKLUSIVITAS</p><h2>Tim Pengabdian Masyarakat Universitas Negeri Malang Hadirkan Inovasi AI Tutoring System untuk Teman Tuli, Wujudkan Pendidikan Inklusif Berkualitas</h2><a className="bp-button bp-button-dark bp-article-button" href="#featured-article">BACA ARTIKEL <span>→</span></a><div className="bp-article-placeholder"><span>Konten lengkap artikel belum tersedia di project.</span><small>Sumber, tanggal, dan materi artikel akan ditambahkan setelah tersedia.</small></div></div></div></section>
 
         <section className="bp-cta bp-grid-section" id="dukung"><span className="bp-cta-index">08 / 08</span><div className="bp-cta-main"><h2>Karena masa depan<br /><i>dimulai dari kesempatan.</i></h2><p>Berpijar terus berupaya menghadirkan pendidikan dan pembekalan yang dapat membantu anak berkembang dan menghadapi kehidupan dengan lebih siap.</p></div><div className="bp-actions"><a className="bp-button bp-button-light" href="#kontak">DUKUNG BERPIJAR <span>→</span></a><a className="bp-text-link light-link" href="#program">LIHAT PROGRAM <span>↗</span></a></div></section>
       </div>
