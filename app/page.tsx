@@ -54,9 +54,9 @@ export default function Home() {
     }
 
     const context = gsap.context(() => {
-      const imageTargets = ".bp-about-media img, .bp-program-feature img, .bp-activity-rail img";
+      const imageTargets = ".bp-program-feature img, .bp-activity-rail img";
       const motionTargets = ".bp-focus-item, .bp-program-item, .bp-small-stories article, .bp-metrics div";
-      const sectionTargets = ".bp-intro, .bp-focus, .bp-program, .bp-stories, .bp-impact, .bp-cta, .bp-footer";
+      const sectionTargets = ".bp-focus, .bp-program, .bp-stories, .bp-impact, .bp-cta, .bp-footer";
 
       if (reduceMotion) {
         return;
@@ -96,8 +96,32 @@ export default function Home() {
       const compactMotion = window.matchMedia("(max-width: 680px)").matches;
       const revealDuration = compactMotion ? 0.52 : 0.7;
       const revealEase = "power2.out";
+      const aboutSection = document.querySelector<HTMLElement>("#tentang");
       const newsSection = document.querySelector<HTMLElement>("#artikel");
       const featuredSection = document.querySelector<HTMLElement>("#featured-article");
+
+      if (aboutSection) {
+        const aboutLabel = aboutSection.querySelector<HTMLElement>(".bp-section-label");
+        const aboutHeading = aboutSection.querySelector<HTMLElement>(".bp-intro h2");
+        const aboutDescription = aboutSection.querySelector<HTMLElement>(".bp-intro-side > p");
+        const aboutMedia = aboutSection.querySelector<HTMLElement>(".bp-about-media");
+        const aboutImage = aboutSection.querySelector<HTMLImageElement>(".bp-about-media img");
+        const aboutLink = aboutSection.querySelector<HTMLElement>(".bp-intro-side > .bp-text-link");
+
+        if (aboutLabel && aboutHeading && aboutDescription && aboutMedia && aboutImage && aboutLink) {
+          gsap.set([aboutLabel, aboutHeading, aboutDescription, aboutMedia, aboutLink], { autoAlpha: 0, y: compactMotion ? 12 : 20 });
+          gsap.set(aboutImage, { clipPath: "inset(0 0 12% 0)", opacity: 0.82, scale: compactMotion ? 1.012 : 1.02 });
+
+          const aboutTimeline = gsap.timeline({ scrollTrigger: { trigger: aboutSection, start: compactMotion ? "top 88%" : "top 80%", once: true } });
+          aboutTimeline
+            .to(aboutLabel, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase })
+            .to(aboutHeading, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase }, "-=0.3")
+            .to(aboutDescription, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase }, "-=0.3")
+            .to(aboutMedia, { autoAlpha: 1, y: 0, duration: revealDuration, ease: revealEase }, "-=0.22")
+            .to(aboutImage, { clipPath: "inset(0 0 0% 0)", opacity: 1, scale: 1, duration: compactMotion ? 0.72 : 0.92, ease: revealEase }, "-=0.48")
+            .to(aboutLink, { autoAlpha: 1, y: 0, duration: compactMotion ? 0.42 : 0.52, ease: revealEase }, "-=0.32");
+        }
+      }
 
       if (newsSection) {
         const newsLabel = newsSection.querySelector<HTMLElement>(".bp-section-label");

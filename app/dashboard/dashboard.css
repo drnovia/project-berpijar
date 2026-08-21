@@ -43,3 +43,47 @@
 .bi-setting-row small { max-width: 560px; margin-top: 6px; color: var(--bi-muted); font-size: 10px; line-height: 1.55; }
 @media (max-width: 1080px) { .bi-media-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 760px) { .bi-media-grid { grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px; }.bi-media-item img { height: 150px; }.bi-media-item figcaption { padding: 10px; }.bi-media-item figcaption strong { font-size: 10px; }.bi-settings-list { padding-inline: 16px; }.bi-setting-row { grid-template-columns: 1fr; gap: 8px; padding: 18px 0; } }
+
+/* Desktop premium pass: preserve the existing information architecture while
+ * sharpening hierarchy, surfaces, spacing, and interaction feedback. */
+@media (min-width: 761px) {
+  .bi-dashboard { --bi-paper: #f1f4f0; --bi-line: #d6e0d9; }
+  .bi-sidebar { padding: 28px 16px 20px; box-shadow: 10px 0 30px rgba(15, 47, 37, .08); }
+  .bi-brand { padding-bottom: 28px; }
+  .bi-nav { gap: 5px; }
+  .bi-nav button { border-radius: 7px; padding-block: 13px; transition: background-color .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease; }
+  .bi-nav button:hover { transform: translateX(2px); }
+  .bi-nav button.is-active { box-shadow: inset 3px 0 0 var(--bi-orange), 0 10px 22px rgba(7, 40, 30, .12); }
+  .bi-topbar { min-height: 78px; padding-inline: clamp(28px, 3.5vw, 52px); background: rgba(241, 244, 240, .9); }
+  .bi-breadcrumb { gap: 14px; }
+  .bi-top-actions { gap: 18px; }
+  .bi-top-avatar { width: 34px; height: 34px; box-shadow: 0 5px 14px rgba(223, 112, 74, .2); }
+  .bi-content { padding: 48px clamp(28px, 4vw, 58px) 88px; }
+  .bi-page-heading { align-items: flex-start; margin-bottom: 38px; }
+  .bi-page-heading h1 { max-width: 790px; font-size: clamp(52px, 5vw, 78px); line-height: .9; }
+  .bi-page-description { max-width: 480px; margin-top: 25px; font-size: 14px; line-height: 1.65; }
+  .bi-date-block { min-width: 218px; margin-top: 54px; border: 1px solid var(--bi-line); border-left: 2px solid var(--bi-orange); border-radius: 8px; box-shadow: 0 12px 28px rgba(30, 54, 44, .07); }
+  .bi-metrics { gap: 16px; margin-bottom: 25px; }
+  .bi-metric { min-height: 151px; padding: 20px; border-radius: 8px; box-shadow: 0 10px 24px rgba(30, 54, 44, .045); transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+  .bi-metric:hover { border-color: #b8cdc0; box-shadow: 0 16px 30px rgba(30, 54, 44, .09); transform: translateY(-3px); }
+  .bi-metric strong { margin-top: 34px; font-size: 48px; }
+  .bi-overview-grid { gap: 24px; margin-bottom: 24px; }
+  .bi-panel { border-radius: 8px; box-shadow: 0 12px 30px rgba(30, 54, 44, .045); overflow: hidden; }
+  .bi-panel-header { padding: 22px 24px; }
+  .bi-panel-header h2 { font-size: 18px; }
+  .bi-program-list, .bi-activity-list { padding-inline: 24px; }
+  .bi-program-row { min-height: 92px; transition: background-color .2s ease; }
+  .bi-program-row:hover { background: #fafcf9; }
+  .bi-table-tools { padding-inline: 24px; }
+  .bi-table th { background: #fbfdfb; }
+  .bi-table th, .bi-table td { padding-inline: 24px; }
+  .bi-table tr { transition: background-color .2s ease; }
+  .bi-table td { padding-block: 17px; }
+  .bi-panel-footnote { padding-inline: 24px; }
+}
+
+@media (min-width: 761px) and (max-width: 1080px) {
+  .bi-page-heading { flex-wrap: wrap; }
+  .bi-page-heading > div:first-child { min-width: 0; flex: 1 1 420px; }
+  .bi-date-block { flex: 1 1 190px; min-width: 190px; margin-top: 0; }
+}
