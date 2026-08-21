@@ -87,3 +87,7 @@
   .bi-page-heading > div:first-child { min-width: 0; flex: 1 1 420px; }
   .bi-date-block { flex: 1 1 190px; min-width: 190px; margin-top: 0; }
 }
+
+.bi-brand { transition: opacity .2s ease; }
+.bi-brand:hover { opacity: .84; }
+.bi-brand:focus-visible, .bi-public-link:focus-visible { outline: 2px solid var(--bi-orange); outline-offset: 5px; }

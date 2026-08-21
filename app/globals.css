@@ -64,3 +64,8 @@ button { cursor: pointer; }
 .bp-about-media:hover img { transform: scale(1.025); }
 @media (max-width: 980px) { .bp-intro { padding: 118px 0 132px; }.bp-intro-content { gap: 48px; }.bp-intro-side { max-width: none; } }
 @media (max-width: 680px) { .bp-intro { padding: 88px 0 98px; }.bp-intro h2 { max-width: 560px; font-size: clamp(40px, 12vw, 64px); }.bp-intro-side { padding: 0; border-left: 0; }.bp-intro-side p { max-width: 520px; font-size: 13px; line-height: 1.75; }.bp-about-media { margin: 36px 0 25px; }.bp-about-media::before { inset: 8px -7px -8px 7px; }.bp-about-media figcaption { display: block; }.bp-intro-side > .bp-text-link::after { display: none; } }
+
+/* One-brand navigation bridge */
+.bp-nav-dashboard { padding-left: 16px; border-left: 1px solid var(--line); color: var(--green) !important; }
+.bp-nav-dashboard:focus-visible, .bp-wordmark:focus-visible, .bp-support:focus-visible, .bp-arrow:focus-visible { outline: 2px solid var(--orange); outline-offset: 5px; }
+@media (max-width: 980px) { .bp-nav-dashboard { padding-left: 0; border-left: 0; } }
