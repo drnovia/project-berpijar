@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
-@import "tailwindcss";
+@import "tailwindcss/index.css";
 
 :root { --paper: #f7f6f2; --ink: #171717; --green: #123c32; --green-2: #1b5445; --muted: #6b6b6b; --line: #cfd0c9; --orange: #d8673f; --light-green: #e2e9e2; }
 * { box-sizing: border-box; }
