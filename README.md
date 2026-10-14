@@ -1,100 +1,61 @@
-# vinext-starter
+<div align="center">
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+# 💖 Project Berpijar
 
-## Prerequisites
+<img src="https://img.shields.io/badge/Jenius-social%20impact-FFB7C5?style=for-the-badge" alt="Jenius social impact" />
+<img src="https://img.shields.io/badge/stack-Vinext%20%2B%20GSAP-E8D5FF?style=for-the-badge" alt="Stack" />
+<img src="https://img.shields.io/badge/focus-life%20skill%20%26%20inklusivitas-B8E8FC?style=for-the-badge" alt="Focus" />
 
-- Node.js `>=22.13.0`
+**Situs yayasan Berpijar — pendidikan, life skill, dan program inklusif untuk teman tuli, dengan motion yang lembut dan informasi yang jujur.** 🌸
 
-## Quick Start
+[Quickstart](docs/quickstart.md) · [Folder map](docs/folder-map.md) · [Contributing](CONTRIBUTING.md)
+
+</div>
+
+---
+
+## 💖 Tentang
+
+Landing page dan indeks program Yayasan Berpijar: area fokus (pendidikan, life skill, pemberdayaan, inklusivitas), berita, dan halaman detail program — termasuk **Life Skill untuk Teman Tuli**.
+
+## 🛠 Instalasi
+
+Node.js `>=22.13.0`
 
 ```bash
+git clone https://github.com/drnovia/project-berpijar.git
+cd project-berpijar
 npm install
-npm run dev
-npm run build
 ```
 
-This starter does not use `wrangler.jsonc`.
+## 🚀 Pemakaian
 
-## Included Shape
+| Perintah | Fungsi |
+| --- | --- |
+| `npm run dev` | Pengembangan lokal |
+| `npm run build` | Build produksi |
+| `npm test` | Build + tes HTML |
+| `npm run lint` | ESLint |
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+Detail: [`docs/quickstart.md`](docs/quickstart.md).
 
-## Workspace Auth Headers
+## 📁 Struktur
 
-Signed-in visitors receive both `oai-authenticated-user-id` and `oai-authenticated-user-email`. Private Sites require every visitor to sign in; public Sites may also have anonymous visitors, for whom neither header is present.
+- `app/` — halaman (`/`, `/program`, `/dashboard`)
+- `public/berpijar/` — foto kegiatan
+- `tests/` — regresi render
+- `docs/` — panduan tim
 
-The user ID is stable for the same user on the same Site and different across Sites. Email and name are intended for display or contact purposes.
+Peta: [`docs/folder-map.md`](docs/folder-map.md).
 
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
+## 🤝 Kontribusi
 
-Treat the full name as optional and fall back to email when it is absent:
+Baca [`CONTRIBUTING.md`](CONTRIBUTING.md). Utamakan akurasi program dan aksesibilitas visual.
 
-```tsx
-import { headers } from "next/headers";
+## 📜 Lisensi
 
-export default async function Home() {
-  const requestHeaders = await headers();
-  const userId = requestHeaders.get("oai-authenticated-user-id");
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
+MIT — [`LICENSE`](LICENSE).
 
-  const displayName = fullName ?? email;
-  // ...
-}
-```
+---
 
-## Optional Dispatch-Owned ChatGPT Sign-In
-
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
-
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
-
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
-
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
-
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
-
-## Useful Commands
-
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+<p align="center"><sub>✨ Berpijar · teknologi dengan hati</sub></p>
