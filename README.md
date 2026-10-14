@@ -8,7 +8,7 @@
 
 **Situs yayasan Berpijar — pendidikan, life skill, dan program inklusif untuk teman tuli, dengan motion yang lembut dan informasi yang jujur.** 🌸
 
-[Quickstart](docs/quickstart.md) · [Folder map](docs/folder-map.md) · [Contributing](CONTRIBUTING.md)
+[Quickstart](docs/quickstart.md) · [Folder map](docs/folder-map.md) · [Workspace index](docs/monorepo-index.md) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -23,7 +23,7 @@ Landing page dan indeks program Yayasan Berpijar: area fokus (pendidikan, life s
 Node.js `>=22.13.0`
 
 ```bash
-git clone https://github.com/drnovia/project-berpijar.git
+git clone https://github.com/drnovia/Project-Berpijar.git
 cd project-berpijar
 npm install
 ```
